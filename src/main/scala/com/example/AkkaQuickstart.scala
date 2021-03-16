@@ -2,6 +2,7 @@
 package com.example
 
 
+import akka.actor.TypedActor
 import akka.actor.typed.ActorRef
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.Behavior
@@ -22,6 +23,18 @@ object Greeter {
   }
 }
 //#greeter-actor
+(
+
+//todo : calculater
+object Calculator {
+
+  final class Add(a:Int,b:Int)
+
+  def apply: Behavior[Add] = Behaviors.receive { (context,message) =>
+    context.log.info("Intesting {} ",message.)
+
+  }
+}
 
 //#greeter-bot
 object GreeterBot {
@@ -70,9 +83,11 @@ object GreeterMain {
 object  MivoMain{
   case class Calculator(a:Int,b:Int,sign:String)
 
-  def apply(): Behavior[Calculator] ={
+  def apply(): Behavior[Calculator] = Behaviors.setup{
+    context =>
 
   }
+
 }
 //#main-class
 object AkkaQuickstart extends App {
