@@ -66,6 +66,14 @@ object GreeterMain {
 }
 //#greeter-main
 
+
+object  MivoMain{
+  case class Calculator(a:Int,b:Int,sign:String)
+
+  def apply(): Behavior[Calculator] ={
+
+  }
+}
 //#main-class
 object AkkaQuickstart extends App {
   //#actor-system
@@ -73,7 +81,7 @@ object AkkaQuickstart extends App {
   //#actor-system
 
   //#main-send-messages
-  greeterMain ! SayHello("Charles")
+  greeterMain ! SayHello("miles")
   //#main-send-messages
 }
 //#main-class
