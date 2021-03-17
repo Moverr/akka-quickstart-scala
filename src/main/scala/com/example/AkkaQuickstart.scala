@@ -23,24 +23,7 @@ object Greeter {
   }
 }
 //#greeter-actor
-(
 
-//todo : calculater
-object Calculator {
-
-  def c(a:Int,b:Int):Int = a+b
-
-  final case class Ping(a:Int, b:Int, replyTo:ActorRef[Added])
-
-  final case class Added(result:Int,from:ActorRef[Ping])
-
-  def apply: Behavior[Ping] = Behaviors.receive { (context, message) =>
-    context.log.info("Result {} ",message.a+message.b)
-    val result = c(message.a,message.b)
-    message.replyTo ! Added(result,context.self)
-    Behaviors.same
-  }
-}
 
 //#greeter-bot
 object GreeterBot {
@@ -62,6 +45,31 @@ object GreeterBot {
     }
 }
 //#greeter-bot
+
+
+//todo : calculater
+object Calculator {
+
+  def c(a:Int,b:Int):Int = a+b
+
+  final case class Ping(a:Int, b:Int, replyTo:ActorRef[Added])
+
+  final case class Added(result:Int,from:ActorRef[Ping])
+
+  def apply: Behavior[Ping] = Behaviors.receive { (context, message) =>
+    context.log.info("Result {} ",message.a+message.b)
+    message.replyTo ! Added(c(message.a,message.b),context.self)
+    Behaviors.same
+  }
+}
+
+
+
+
+
+//todo: Calculator Bot
+
+
 
 //#greeter-main
 object GreeterMain {
