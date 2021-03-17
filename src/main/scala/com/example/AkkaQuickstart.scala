@@ -28,11 +28,17 @@ object Greeter {
 //todo : calculater
 object Calculator {
 
-  final class Add(a:Int,b:Int)
+  def c(a:Int,b:Int):Int = a+b
 
-  def apply: Behavior[Add] = Behaviors.receive { (context,message) =>
-    context.log.info("Intesting {} ",message.)
+  final case class Ping(a:Int, b:Int, replyTo:ActorRef[Added])
 
+  final case class Added(result:Int,from:ActorRef[Ping])
+
+  def apply: Behavior[Ping] = Behaviors.receive { (context, message) =>
+    context.log.info("Result {} ",message.a+message.b)
+    val result = c(message.a,message.b)
+    message.replyTo ! Added(result,context.self)
+    Behaviors.same
   }
 }
 
