@@ -2,7 +2,7 @@
 package com.example
 
 
-import akka.actor.TypedActor
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props, TypedActor}
 import akka.actor.typed.ActorRef
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.Behavior
@@ -70,7 +70,6 @@ object Calculator {
 //todo: Calculator Bot
 
 
-
 //#greeter-main
 object GreeterMain {
 
@@ -94,23 +93,60 @@ object GreeterMain {
 //#greeter-main
 
 
-object  MivoMain{
-  case class Calculator(a:Int,b:Int,sign:String)
 
-  def apply(): Behavior[Calculator] = Behaviors.setup{
-    context =>
+case class Adding(a:Int,b:Int)
 
+class  AddingActor extends Actor with ActorLogging{
+  override def receive: Receive = {
+    case Adding(a,b) => log.info("Result {}",(a+b).toString)
+  }
+}
+
+object AddingMain {
+
+  final case class SayHello(name: String)
+
+  def apply(): Behavior[SayHello] =
+    Behaviors.setup { context =>
+      //#create-actors
+      val greeter = context.spawn(Greeter(), "greeter")
+      //#create-actors
+
+      Behaviors.receiveMessage { message =>
+        //#create-actors
+        val replyTo = context.spawn(GreeterBot(max = 3), message.name)
+        //#create-actors
+        greeter ! Greeter.Greet(message.name, replyTo)
+        Behaviors.same
+      }
+    }
+}
+
+class HelloAkka extends  Actor{
+  override def receive: Receive = {
+    case (a:Int,b:Int)=> print((a+b))
+    case _ => println("Lord is Merciful")
   }
 
 }
+
 //#main-class
 object AkkaQuickstart extends App {
+
+
+  var actossystem = ActorSystem("ActorSystem")
+  var actor = actossystem.actorOf(Props[HelloAkka],"HelloAkka")
+
+  actor ! (1,2)
+  actor ! "Trust in the supremacy"
+
   //#actor-system
-  val greeterMain: ActorSystem[GreeterMain.SayHello] = ActorSystem(GreeterMain(), "AkkaQuickStart")
+//  val greeterMain: ActorSystem[GreeterMain.SayHello] = ActorSystem(GreeterMain(), "AkkaQuickStart")
   //#actor-system
 
+
   //#main-send-messages
-  greeterMain ! SayHello("miles")
+//  greeterMain ! SayHello("miles")
   //#main-send-messages
 }
 //#main-class
