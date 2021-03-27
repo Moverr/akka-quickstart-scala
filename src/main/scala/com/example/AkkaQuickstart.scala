@@ -122,9 +122,9 @@ object AddingMain {
 }
 case class misn(a:Int,b:Int)
 
-class HelloAkka(arg:misn) extends  Actor{
+class HelloAkka() extends  Actor{
   override def receive: Receive = {
-    case (a:Int,b:Int)=> print((a+b))
+    case a:String=> print((a))
     case _ => println("Lord is Merciful")
   }
 
