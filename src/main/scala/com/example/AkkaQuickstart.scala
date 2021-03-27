@@ -4,7 +4,6 @@ package com.example
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props, TypedActor}
 import akka.actor.typed.ActorRef
-import akka.actor.typed.ActorSystem
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
 import com.example.GreeterMain.SayHello
@@ -121,8 +120,9 @@ object AddingMain {
       }
     }
 }
+case class misn(a:Int,b:Int)
 
-class HelloAkka extends  Actor{
+class HelloAkka(arg:misn) extends  Actor{
   override def receive: Receive = {
     case (a:Int,b:Int)=> print((a+b))
     case _ => println("Lord is Merciful")
@@ -137,7 +137,7 @@ object AkkaQuickstart extends App {
   var actossystem = ActorSystem("ActorSystem")
   var actor = actossystem.actorOf(Props[HelloAkka],"HelloAkka")
 
-  actor ! (1,2)
+
   actor ! "Trust in the supremacy"
 
   //#actor-system
