@@ -124,7 +124,7 @@ case class misn(a:Int,b:Int)
 
 class HelloAkka() extends  Actor{
   override def receive: Receive = {
-    case a:String=> print((a))
+    case a:String=> print((a)+self.path.name)
     case _ => println("Lord is Merciful")
   }
 
