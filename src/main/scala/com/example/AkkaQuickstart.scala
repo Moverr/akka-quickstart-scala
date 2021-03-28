@@ -124,7 +124,7 @@ case class misn(a:Int,b:Int)
 
 class HelloAkka() extends  Actor{
   override def receive: Receive = {
-    case a:String=> print((a)+self.path.name)
+    case a:misn=> print(a.a+a.b + " Intestring scenario ")
     case _ => println("Lord is Merciful")
   }
 
@@ -138,7 +138,7 @@ object AkkaQuickstart extends App {
   var actor = actossystem.actorOf(Props[HelloAkka],"HelloAkka")
 
 
-  actor ! "Trust in the Lord"
+  actor ! misn(1,2)
 
   //#actor-system
 //  val greeterMain: ActorSystem[GreeterMain.SayHello] = ActorSystem(GreeterMain(), "AkkaQuickStart")
