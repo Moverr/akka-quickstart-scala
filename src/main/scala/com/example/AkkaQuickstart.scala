@@ -138,7 +138,7 @@ object AkkaQuickstart extends App {
   var actor = actossystem.actorOf(Props[HelloAkka],"HelloAkka")
 
 
-  actor ! "Trust in the supremacy"
+  actor ! "Trust in the Lord"
 
   //#actor-system
 //  val greeterMain: ActorSystem[GreeterMain.SayHello] = ActorSystem(GreeterMain(), "AkkaQuickStart")
