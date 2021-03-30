@@ -132,7 +132,7 @@ class HelloAkka() extends  Actor{
 
 class GreetingActor() extends Actor{
   override def receive: Receive = {
-    case _ => print("Interesting")
+    case a:String => print("Interesting")
   }
 }
 
@@ -147,7 +147,7 @@ object AkkaQuickstart extends App {
   actor ! misn(1,2)
 
 //  var actSystem = ActorSystem("Beloong")
-  var actsor = actossystem.actorOf(Props[GreetingActor],"Greet Me Actor")
+  var actsor = actossystem.actorOf(Props[GreetingActor],"GreetenActor")
 //
   actsor ! "Trust that you are still doing fine"
   //#actor-system
