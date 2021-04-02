@@ -125,14 +125,21 @@ case class misn(a:Int,b:Int)
 class HelloAkka() extends  Actor{
   override def receive: Receive = {
     case a:misn=> print(a.a+a.b + " Intestring scenario ")
-    case _ => println("Lord is Merciful")
+    case _ => {
+      println("Lord is Merciful")
+      val childMe = context.actorOf(Props[GreetingActor],"gals")
+      childMe ! "men"
+    }
+
+
+
   }
 
 }
 
 class GreetingActor() extends Actor{
   override def receive: Receive = {
-    case a:String => print("Interesting")
+    case _ => println("Blame me not")
   }
 }
 
@@ -144,12 +151,12 @@ object AkkaQuickstart extends App {
   var actor = actossystem.actorOf(Props[HelloAkka],"HelloAkka")
 
 
-  actor ! misn(1,2)
+  actor ! "bllod"
 
 //  var actSystem = ActorSystem("Beloong")
-  var actsor = actossystem.actorOf(Props[GreetingActor],"GreetenActor")
+  //var actsor = actossystem.actorOf(Props[GreetingActor],"GreetenActor")
 //
-  actsor ! "Trust that you are still doing fine"
+ // actsor ! "men"
   //#actor-system
 //  val greeterMain: ActorSystem[GreeterMain.SayHello] = ActorSystem(GreeterMain(), "AkkaQuickStart")
   //#actor-system
