@@ -151,7 +151,8 @@ object AkkaQuickstart extends App {
   var actor = actossystem.actorOf(Props[HelloAkka],"HelloAkka")
 
 
-  actor ! "bllod"
+//  actor !("bllod")
+  actor.tell("Intneresting",null)
 
 //  var actSystem = ActorSystem("Beloong")
   //var actsor = actossystem.actorOf(Props[GreetingActor],"GreetenActor")
