@@ -140,6 +140,8 @@ class HelloAkka() extends  Actor{
 class GreetingActor() extends Actor{
   override def receive: Receive = {
     case _ => println("Blame me not")
+      println("Replying to "+sender().path.name)
+      sender() ! "I got your Message "
   }
 }
 
